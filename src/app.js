@@ -20,19 +20,19 @@ export class PizzaApp extends React.Component {
         pizzas: [],
         allPizzas: []
     }
-    
+
     componentDidMount(){
         this.loadPizza(pizzaPromise);
     }
     
     loadPizza = (promise) => {
-        return promise(response => {
+        promise(response => {
             this.setState({pizzas: response.pizzas, allPizzas: response.pizzas})
         })
     }
 
     updateList = (pizzas) => {
-        this.setState({pizzas: pizzas, allPizzas: this.state.allPizzas})
+        this.setState({pizzas: pizzas})
     }
     
     filterPizza = (word) => {

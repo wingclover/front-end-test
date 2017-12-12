@@ -6,7 +6,16 @@ import sinon from 'sinon';
 
 import { PizzaApp, InputArea, PizzaList } from '../src/app.js';
 import PIZZA from '../pizza.json'
-import { resolve } from 'url';
+//import { resolve } from 'url';
+
+// const jsdom = require("jsdom");
+// const { JSDOM } = jsdom;
+// global.window  = (new JSDOM(``)).window;
+
+// const { JSDOM } = require('jsdom');
+
+// const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+// const { window } = jsdom;
 
 describe('PizzaApp', () => {
     let wrapper;
@@ -22,11 +31,15 @@ describe('PizzaApp', () => {
         expect(wrapper.state('allPizzas')).to.be.empty()
     })
 
-    it('should call loadPizza on component mount')
+    // it('should call loadPizza on component mount', () => {
+    //     const loadStub = sinon.stub().returns(Promise.resolve());
+    //     const app = mount(<PizzaApp loadPizza={loadStub}/>);
+    //     expect(loadStub.calledOnce).to.be.true();
+    // })
 
-    it('should set component state to returned data')
+    // it('should set component state to returned data')
 
-    it('should call pizza.json')
+    // it('should call pizza.json')
 
     describe('when the page waits for data to load', () => {
         it('then the text `Loading` should be shown', () => {
@@ -36,14 +49,14 @@ describe('PizzaApp', () => {
     })
     
     describe('when the server returns a response', () => {
+        const fakeAPI = (onSuccess) => {
+            return new Promise((resolve, reject) =>{
+                resolve(onSuccess(PIZZA))
+            })
+        }
+        
         beforeEach(() => {
-            const fakeAPI = (onSuccess) => {
-                        return new Promise((resolve, reject) =>{
-                            resolve(onSuccess(PIZZA))
-                        })
-                    }
             wrapper.instance().loadPizza(fakeAPI)
-            wrapper.update()
         })
 
 
