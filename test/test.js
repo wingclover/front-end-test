@@ -3,19 +3,11 @@ import ReactDOM from 'react-dom';
 import { expect } from 'code';
 import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
+import axios from 'axios';
 
-import { PizzaApp, InputArea, PizzaList } from '../src/app.js';
+import { PIZZA_URL, fetchPizza, PizzaApp, InputArea, PizzaList } from '../src/app.js';
 import PIZZA from '../pizza.json'
 //import { resolve } from 'url';
-
-// const jsdom = require("jsdom");
-// const { JSDOM } = jsdom;
-// global.window  = (new JSDOM(``)).window;
-
-// const { JSDOM } = require('jsdom');
-
-// const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
-// const { window } = jsdom;
 
 describe('PizzaApp', () => {
     let wrapper;
@@ -23,6 +15,9 @@ describe('PizzaApp', () => {
         wrapper = shallow(<PizzaApp/>)
     })    
 
+    // afterEach(() => {
+    //     wrapper.unmount()
+    // })
     it('should render', () => {
         expect(wrapper.exists()).to.be.true();
     })
@@ -31,15 +26,28 @@ describe('PizzaApp', () => {
         expect(wrapper.state('allPizzas')).to.be.empty()
     })
 
-    // it('should call loadPizza on component mount', () => {
-    //     const loadStub = sinon.stub().returns(Promise.resolve());
-    //     const app = mount(<PizzaApp loadPizza={loadStub}/>);
-    //     expect(loadStub.calledOnce).to.be.true();
-    // })
+    it('should call fetchPizza on component mount', async () => {
+        const fetchStub = sinon.stub().resolves({data:{}});
+        const app = await shallow(<PizzaApp fetchPizza={fetchStub}/>);
+        app.instance().componentDidMount()
+        expect(fetchStub.calledOnce).to.be.true();
+    })
 
-    // it('should set component state to returned data')
+    it('should set component state to returned data', async () => {
+        const fetchStub = sinon.stub().resolves({data: PIZZA});
+        const app = await shallow(<PizzaApp fetchPizza={fetchStub}/>);
+        await app.instance().componentDidMount()
+        expect(app.state('allPizzas')).to.equal(PIZZA.pizzas)
+        expect(app.state('pizzas')).to.equal(PIZZA.pizzas)
+    })
+    
 
-    // it('should call pizza.json')
+    it('should call pizza.json', () => {
+        sinon.stub(axios, 'get')
+        fetchPizza()
+        expect(axios.get.firstCall.args[0]).to.equal(PIZZA_URL)
+        axios.get.restore()
+    })
 
     describe('when the page waits for data to load', () => {
         it('then the text `Loading` should be shown', () => {
@@ -49,22 +57,8 @@ describe('PizzaApp', () => {
     })
     
     describe('when the server returns a response', () => {
-        const fakeAPI = (onSuccess) => {
-            return new Promise((resolve, reject) =>{
-                resolve(onSuccess(PIZZA))
-            })
-        }
-        
         beforeEach(() => {
-            wrapper.instance().loadPizza(fakeAPI)
-        })
-
-
-        it('should update state', () => {
-            
-            expect(wrapper.state('allPizzas')).to.equal(PIZZA.pizzas)
-            expect(wrapper.state('pizzas')).to.equal(PIZZA.pizzas)
-             
+            wrapper.setState({pizzas: PIZZA.pizzas, allPizzas: PIZZA.pizzas})
         })
     
         it('should render InputArea, `Sort` button and PizzaList', () => {

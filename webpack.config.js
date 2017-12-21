@@ -6,7 +6,7 @@ const filePath = path.join(__dirname, 'src','index.js');
 const PORT = '8080';
 
 const config = {
-  entry: filePath,
+  entry: ['babel-polyfill', filePath],
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, 'dist', )

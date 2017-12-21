@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch';
+import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
 // Note: this is the entry point for the entire application
@@ -6,11 +6,9 @@ import ReactDOM from 'react-dom';
 // step 1: you will need to load the pizza data. it is available at /pizza.json. what-wg fetch is pre-installed.
 // remember that fetch uses promises.
 
-const pizzaPromise = (onSuccess) => {
-    return fetch('pizza.json')
-    .then(response=>response.json())
-    .catch(err => console.log('Fetch Failed: '+ err))
-    .then(response=>onSuccess(response))    
+export const PIZZA_URL = 'pizza.json'
+export const fetchPizza = () => {
+    return axios.get(PIZZA_URL)  
 };
 
 // step 2: implement the view and required behaviors
@@ -22,13 +20,9 @@ export class PizzaApp extends React.Component {
     }
 
     componentDidMount(){
-        this.loadPizza(pizzaPromise);
-    }
-    
-    loadPizza = (promise) => {
-        promise(response => {
-            this.setState({pizzas: response.pizzas, allPizzas: response.pizzas})
-        })
+        this.props.fetchPizza().then(response =>{
+            this.setState({pizzas: response.data.pizzas, allPizzas: response.data.pizzas})
+        });
     }
 
     updateList = (pizzas) => {
@@ -62,6 +56,10 @@ export class PizzaApp extends React.Component {
         }
         
     }
+}
+
+PizzaApp.defaultProps = {
+    fetchPizza
 }
 
 export class InputArea extends React.Component {
