@@ -1,5 +1,5 @@
 --compilers .js:babel-core/register
---require ./test/jsdom.config.js
+--require ./test/helpers.js
 --require babel-polyfill
 --recursive
 --watch

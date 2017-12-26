@@ -1,5 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {PizzaApp} from './app';
+import App from './components/App';
 
-ReactDOM.render(<PizzaApp />, document.getElementById('root'));
+import { createStore, applyMiddleware } from 'redux'
+import rootReducer from './reducers'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+
+const store = createStore(rootReducer, applyMiddleware(thunk))
+
+
+ReactDOM.render(
+    <Provider  store={store}>
+        <App/>
+    </Provider>, document.getElementById('root'));
