@@ -7,7 +7,6 @@ import axios from 'axios';
 
 import { PIZZA_URL, fetchPizza, PizzaApp, InputArea, PizzaList } from '../src/app.js';
 import PIZZA from '../pizza.json'
-//import { resolve } from 'url';
 
 describe('PizzaApp', () => {
     let wrapper;
@@ -15,9 +14,6 @@ describe('PizzaApp', () => {
         wrapper = shallow(<PizzaApp/>)
     })    
 
-    // afterEach(() => {
-    //     wrapper.unmount()
-    // })
     it('should render', () => {
         expect(wrapper.exists()).to.be.true();
     })
@@ -51,7 +47,6 @@ describe('PizzaApp', () => {
 
     describe('when the page waits for data to load', () => {
         it('then the text `Loading` should be shown', () => {
-            //when allPizzas is empty, text "Loading" should be shown
             expect(wrapper.equals(<div>Loading</div>)).to.be.true(); 
         })
     })
@@ -97,15 +92,15 @@ describe('PizzaApp', () => {
                 const button = wrapper.find('button')
                 button.simulate('click')
                 expect(wrapper.state('pizzas')).to.equal([
-                    "3 cheeSe", 
-                    "Cheese", 
-                    "Chicken", 
-                    "Hawaiian", 
-                    "macaroni", 
-                    "Pepperoni", 
-                    "Sausage", 
+                    "vegetable", 
                     "Sausage and Pepperoni", 
-                    "vegetable"
+                    "Sausage", 
+                    "Pepperoni", 
+                    "macaroni", 
+                    "Hawaiian", 
+                    "Chicken", 
+                    "Cheese", 
+                    "3 cheeSe"
                 ])
             })
         })
@@ -120,8 +115,6 @@ describe('InputArea', () => {
         const wrapper = shallow(<InputArea />)
         expect(wrapper.containsMatchingElement(<input/>)).to.be.true();
     })
-
-
 
     describe('when the user enters filter text', () => {
         it('should update the InputArea state, and call `onfilter` with filter text', () => {

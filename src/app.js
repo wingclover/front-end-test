@@ -38,7 +38,7 @@ export class PizzaApp extends React.Component {
     }
 
     sortPizza = () => {
-        const sorted = [...this.state.pizzas].sort((a,b) => a.toLowerCase() > b.toLowerCase() ? 1: -1)
+        const sorted = [...this.state.pizzas].sort((a,b) => a.toLowerCase() < b.toLowerCase() ? 1: -1)
         this.updateList(sorted)
     }
     render(){
