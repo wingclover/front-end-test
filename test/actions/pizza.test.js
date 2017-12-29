@@ -1,9 +1,9 @@
 import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import fetchMock from 'fetch-mock'
 import { expect } from 'code'
-import { getPizza, filterPizza, sortPizza } from '../../src/actions/pizza'
+import fetchMock from 'fetch-mock'
+import thunk from 'redux-thunk'
 import constants from '../../src/actions/constants'
+import { getPizza, filterPizza, sortPizza } from '../../src/actions/pizza'
 
 describe('getPizza action creator', () => {
     const createMockStore = configureMockStore([thunk])

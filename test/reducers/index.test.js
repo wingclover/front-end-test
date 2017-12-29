@@ -1,7 +1,6 @@
-import reducer from '../../src/reducers'
-import constants from '../../src/actions/constants'
-
 import { expect } from 'code'
+import constants from '../../src/actions/constants'
+import reducer from '../../src/reducers'
 
 describe('reducer', () => {
     const pizzas = ['abc', 'efg', '3', 'bgl']

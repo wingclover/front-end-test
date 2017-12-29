@@ -1,11 +1,11 @@
-import React from 'react'
 import { expect } from 'code'
 import { shallow } from 'enzyme'
-import { App } from '../../src/components/App'
-import Loading from '../../src/components/Loading'
-import InputArea from '../../src/components/InputArea';
-import PizzaList from '../../src/components/PizzaList';
+import React from 'react'
 import sinon from 'sinon'
+import { App } from '../../src/components/App'
+import InputArea from '../../src/components/InputArea'
+import Loading from '../../src/components/Loading'
+import PizzaList from '../../src/components/PizzaList'
 
 describe('App', () => {
     let wrapper;
@@ -23,6 +23,7 @@ describe('App', () => {
         wrapper.unmount()
         getPizzaSpy.reset()
     })
+    
     it('should render', () => {
         expect(wrapper.exists()).to.be.true()
     })
@@ -45,6 +46,7 @@ describe('App', () => {
             menu: ['chicken'],
             getPizza: getPizzaSpy
         }
+
         beforeEach(() => {
             loadedWrapper = shallow(<App {...loadedProps} />)
         })

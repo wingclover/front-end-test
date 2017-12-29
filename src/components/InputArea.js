@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { filterPizza, sortPizza } from '../actions/pizza'
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { filterPizza, sortPizza } from '../actions/pizza';
 
 export class InputArea extends Component {
     state = {
@@ -27,8 +27,8 @@ export class InputArea extends Component {
 }
 
 InputArea.propTypes = {
-    filterPizza: PropTypes.func,
-    sortPizza: PropTypes.func
+    filterPizza: PropTypes.func.isRequired,
+    sortPizza: PropTypes.func.isRequired
 }
 
 export default connect(null, { filterPizza, sortPizza})(InputArea)

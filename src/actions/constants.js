@@ -1,6 +1,6 @@
 export default Object.freeze({
-    PIZZA_URL: 'pizza.json',
-    GET_PIZZA: 'GET_PIZZA',
     FILTER_PIZZA: 'FILTER_PIZZA',
+    GET_PIZZA: 'GET_PIZZA',
+    PIZZA_URL: 'pizza.json',
     SORT_PIZZA: 'SORT_PIZZA'
 })

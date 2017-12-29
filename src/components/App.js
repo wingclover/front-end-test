@@ -1,11 +1,11 @@
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Loading from './Loading';
+import { getPizza } from '../actions/pizza';
 import Header from './Header';
 import InputArea from './InputArea';
+import Loading from './Loading';
 import PizzaList from './PizzaList';
-import { connect } from 'react-redux';
-import { getPizza } from '../actions/pizza';
-import PropTypes from 'prop-types';
 
 export class App extends Component {
     componentDidMount(){
@@ -30,8 +30,8 @@ export class App extends Component {
 }
 
 App.propTypes = {
-    getPizza: PropTypes.func,
-    menu: PropTypes.array
+    getPizza: PropTypes.func.isRequired,
+    menu: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => {

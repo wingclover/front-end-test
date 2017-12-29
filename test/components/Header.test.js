@@ -1,5 +1,5 @@
-import React from 'react'
 import { expect } from 'code'
+import React from 'react'
 import { shallow } from 'enzyme'
 import Header from '../../src/components/Header'
 

@@ -1,7 +1,7 @@
-import { PizzaList } from '../../src/components/PizzaList'
 import { expect } from 'code'
-import { shallow } from 'enzyme'
 import React from 'react'
+import { shallow } from 'enzyme'
+import { PizzaList } from '../../src/components/PizzaList'
 
 describe('PizzaList', () => {
     let wrapper
@@ -9,6 +9,7 @@ describe('PizzaList', () => {
     const props = {
         pizzas: ['chicken']    
     }
+
     beforeEach(() =>{
         wrapper = shallow(<PizzaList {...props}/>)
     })
@@ -18,8 +19,6 @@ describe('PizzaList', () => {
     })
 
     describe('when mounted', () => {
-
-
         it('should display pizza received from props', () => {
             expect(wrapper.find('li').length).to.equal(props.pizzas.length)
         })

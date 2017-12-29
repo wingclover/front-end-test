@@ -1,8 +1,8 @@
-import React from 'react'
 import { expect } from 'code'
+import React from 'react'
 import { shallow } from 'enzyme'
-import { InputArea } from '../../src/components/InputArea'
 import sinon from 'sinon'
+import { InputArea } from '../../src/components/InputArea'
 
 
 describe('InputArea', () => {
