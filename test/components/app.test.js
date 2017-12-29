@@ -1,12 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { expect } from 'code';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import axios from 'axios';
 
-import { PIZZA_URL, fetchPizza, PizzaApp, InputArea, PizzaList } from '../src/app.js';
-import PIZZA from '../pizza.json'
+import { PIZZA_URL, fetchPizza } from '../../src/helpers/helper';
+import PizzaApp from '../../src/components/app'
+import InputArea from '../../src/components/InputArea'
+import PizzaList from '../../src/components/PizzaList'
+import PIZZA from '../../pizza.json'
 
 describe('PizzaApp', () => {
     let wrapper;
@@ -35,16 +36,8 @@ describe('PizzaApp', () => {
         await app.instance().componentDidMount()
         expect(app.state('allPizzas')).to.equal(PIZZA.pizzas)
         expect(app.state('pizzas')).to.equal(PIZZA.pizzas)
-    })
+    })   
     
-
-    it('should call pizza.json', () => {
-        sinon.stub(axios, 'get')
-        fetchPizza()
-        expect(axios.get.firstCall.args[0]).to.equal(PIZZA_URL)
-        axios.get.restore()
-    })
-
     describe('when the page waits for data to load', () => {
         it('then the text `Loading` should be shown', () => {
             expect(wrapper.equals(<div>Loading</div>)).to.be.true(); 
@@ -107,38 +100,4 @@ describe('PizzaApp', () => {
            
     })
    
-})
-
-describe('InputArea', () => {
-    
-    it('should show a filter input', () => {
-        const wrapper = shallow(<InputArea />)
-        expect(wrapper.containsMatchingElement(<input/>)).to.be.true();
-    })
-
-    describe('when the user enters filter text', () => {
-        it('should update the InputArea state, and call `onfilter` with filter text', () => {
-            const filterSpy = sinon.spy()
-            const wrapper = shallow(<InputArea onFilter={filterSpy}/>)
-            const input = wrapper.find('input')
-            input.simulate('change', {target:{value: 'pepperoni'}})
-            expect(wrapper.state('text')).to.equal('pepperoni')
-            expect(filterSpy.calledOnce).to.be.true()
-            expect(filterSpy.calledWith('pepperoni')).to.be.true()
-        })
-
-    })
-})
-
-describe('PizzaList', () => {
-    it('should start with empty list', () => {
-        const wrapper = shallow(<PizzaList/>)
-        expect(wrapper.find('li').length).to.equal(0)
-    })
-
-    it('should display the list of pizza passed to it', () => {
-        const wrapper = shallow(<PizzaList pizzas={PIZZA.pizzas}/>)
-        const texts = wrapper.find('li').map(node => node.text())
-        expect(texts).to.equal(PIZZA.pizzas)
-    })
 })
