@@ -40,7 +40,7 @@ describe('PizzaApp', () => {
     
     describe('when the page waits for data to load', () => {
         it('then the text `Loading` should be shown', () => {
-            expect(wrapper.equals(<div>Loading</div>)).to.be.true(); 
+            expect(wrapper.equals(<div className='loading text-center'>Loading...</div>)).to.be.true(); 
         })
     })
     

@@ -17,7 +17,7 @@ class InputArea extends React.Component {
 
     render(){
         return (
-            <div>
+            <div className='input-area text-center col-md-2 offset-md-5'>
                 <input id="pizzaInput" onChange={this.handleChange}/>
             </div>
         )

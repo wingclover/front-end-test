@@ -34,14 +34,19 @@ class PizzaApp extends React.Component {
     }
     render(){
         if (this.state.allPizzas && this.state.allPizzas.length === 0){
-            return <div>Loading</div>
+            return <div className='loading text-center'>Loading...</div>
         }
         else {
             return(
                 <div>
-                    <InputArea onFilter={this.filterPizza}/>
-                    <button onClick={this.sortPizza}>Sort</button>
-                    <PizzaList pizzas = {this.state.pizzas}/>
+                    <div className='header text-center'>
+                        <h1>Pizza Menu</h1>
+                    </div>
+                    <div className='bottom'>
+                        <InputArea onFilter={this.filterPizza}/>
+                        <button onClick={this.sortPizza}>Sort</button>
+                        <PizzaList pizzas = {this.state.pizzas}/>
+                    </div>
                 </div>
             )
         }
